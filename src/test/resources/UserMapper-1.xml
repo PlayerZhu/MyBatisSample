@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间规则
+    1.实体包名+类名:   com.qx.sample.model.UserMapper
+    2.实体包名+文件名: com.qx.sample.model.user.mapper
+-->
+<mapper namespace="com.qx.sample.model.UserMapper">
+    <select id="selectUser" resultType="com.qx.sample.model.User">
+        select * from User where id = #{id}
+    </select>
+    <select id="selectAll" resultType="com.qx.sample.model.User">
+        select * from User
+    </select>
+    <insert id="insertUser" parameterType="com.qx.sample.model.User" useGeneratedKeys="false">
+        <!--参数名称和实体名字必须对应-->
+        insert into user(id,name,pwd,age) values(#{id},#{name},#{pwd},#{age})
+    </insert>
+    <update id="updateUser" parameterType="com.qx.sample.model.User">
+        update user t set t.pwd=#{pwd} where t.id=#{id}
+    </update>
+    <delete id="deleteUser">
+        delete from user where id=#{id}
+    </delete>
+</mapper>

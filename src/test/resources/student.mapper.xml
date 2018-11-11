@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qx.sample.model.student.mapper">
+
+    <!--&lt;!&ndash;多对一处理方法1: 按结果嵌套处理&ndash;&gt;-->
+    <!--<select id="getStudents" resultMap="StudentTeacher">-->
+        <!--SELECT-->
+        <!--a.id sid,-->
+        <!--a.`name` sname,-->
+        <!--b.tid tid,-->
+        <!--b.`name` tname-->
+        <!--FROM-->
+        <!--Student a,-->
+        <!--Teacher b-->
+        <!--WHERE-->
+        <!--a.tid = b.tid-->
+    <!--</select>-->
+    <!--<resultMap id="StudentTeacher" type="Student1">-->
+        <!--<id property="id" column="sid"/>-->
+        <!--<result property="name" column="sname"/>-->
+        <!--<association property="teacher" javaType="Teacher1">-->
+            <!--<result property="tid" column="tid"/>-->
+            <!--<result property="name" column="tname"/>-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
+    <!--多对1处理方法2: 按查询嵌套处理-->
+    <select id="getStudents" resultMap="StudentTeacher">
+        select * from Student
+    </select>
+    <resultMap id="StudentTeacher" type="Student1">
+        <association property="teacher" column="tid" javaType="Teacher1"
+                     select="com.qx.sample.model.teacher.mapper.getTeacher"/>
+    </resultMap>
+
+
+    <select id="getStudentByTid" resultType="Student2">
+        select * from Student where tid = #{tid}
+    </select>
+</mapper>

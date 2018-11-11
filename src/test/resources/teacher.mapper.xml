@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qx.sample.model.teacher.mapper">
+
+    <select id="getTeacher" resultType="Teacher1">
+        select * from Teacher where tid = #{tid}
+    </select>
+
+
+    <!--&lt;!&ndash;一对多方法1&ndash;&gt;-->
+    <!--<select id="getTeacherById" resultMap="TeacherStudents">-->
+        <!--SELECT-->
+        <!--a.id sid,-->
+        <!--a.`name` sname,-->
+        <!--b.tid tid,-->
+        <!--b.`name` tname-->
+        <!--FROM-->
+        <!--Student a,-->
+        <!--Teacher b-->
+        <!--WHERE-->
+        <!--a.tid = b.tid-->
+        <!--AND b.tid = #{tid}-->
+    <!--</select>-->
+    <!--<resultMap id="TeacherStudents" type="Teacher2">-->
+        <!--<id property="tid" column="tid"/>-->
+        <!--<result property="name" column="tname"/>-->
+        <!--<collection property="students" ofType="Student2">-->
+            <!--<id property="id" column="sid"/>-->
+            <!--<result property="name" column="sname"/>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+
+    <!--一对多方法二-->
+    <select id="getTeacherById" resultMap="TeacherStudents">
+        select * from Teacher where tid = #{tid}
+    </select>
+    <resultMap id="TeacherStudents" type="Teacher2">
+        <collection property="students" javaType="ArrayList" ofType="Student2" column="tid"
+                    select="com.qx.sample.model.student.mapper.getStudentByTid"/>
+    </resultMap>
+</mapper>
