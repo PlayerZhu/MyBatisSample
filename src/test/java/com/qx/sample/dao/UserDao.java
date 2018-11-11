@@ -91,4 +91,11 @@ public class UserDao {
         return n;
     }
 
+    public List<User> getUserByDynamicSql(Map<String, Object> map) throws IOException {
+        SqlSession sqlSession = DaoUtil.getSqlSession();
+        List<User> lstUser = sqlSession.selectList("com.qx.sample.model.UserMapper.selectUserByDynamicSql", map);
+        sqlSession.close();
+        return lstUser;
+    }
+
 }

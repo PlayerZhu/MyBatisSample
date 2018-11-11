@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @description:
+ * @description: 分页、属性和列名不一致情况使用
  * @author: maker
  * @create: 2018/11/11
  */

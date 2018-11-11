@@ -48,4 +48,14 @@
     <delete id="deleteUser">
         delete from user where id=#{id}
     </delete>
+
+    <!--动态sql-->
+    <select id="selectUserByDynamicSql" resultType="User">
+        select id,name,pwd as password from User
+        <where>
+            <if test="name != null">
+                name like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
 </mapper>
