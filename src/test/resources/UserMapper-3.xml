@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qx.sample.model.UserMapper">
+
+    <select id="selectUser" resultType="User">
+        select id,name,pwd password from im_bs_user_test where id = #{id}
+    </select>
+
+    <select id="getPwdByProc" parameterMap="getPwdMap" statementType="CALLABLE">
+        CALL sp_bs_get_user_pwd(?,?,?,?,?)
+    </select>
+    <parameterMap id="getPwdMap" type="Map">
+        <parameter property="user_id" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="out_code" mode="OUT" jdbcType="NUMERIC"/>
+        <parameter property="out_msg" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="out_pwd" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="out_cursor" mode="OUT" jdbcType="CURSOR" resultMap="mapCursor"/>
+    </parameterMap>
+    <resultMap id="mapCursor" type="User">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="pwd"/>
+    </resultMap>
+
+</mapper>

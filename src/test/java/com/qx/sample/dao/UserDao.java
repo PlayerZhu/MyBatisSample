@@ -38,7 +38,6 @@ public class UserDao {
         return user;
     }
 
-
     public List<User> getAllUser() throws IOException {
         SqlSession sqlSession = DaoUtil.getSqlSession();
         List<User> lstUser = sqlSession.selectList("com.qx.sample.model.UserMapper.selectAll");
@@ -98,4 +97,9 @@ public class UserDao {
         return lstUser;
     }
 
+    public void getUserPwdByProc(Map<String, Object> map) throws IOException {
+        SqlSession sqlSession = DaoUtil.getSqlSession();
+        sqlSession.selectOne("com.qx.sample.model.UserMapper.getPwdByProc", map);
+        sqlSession.close();
+    }
 }
